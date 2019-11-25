@@ -4,6 +4,8 @@
 Game* game = nullptr;
 
 
+
+
 int main(int argc, char* argv[])
 {
 	game = new Game();
@@ -14,7 +16,7 @@ int main(int argc, char* argv[])
 	Uint32 frameStart;
 	int frameTime;
 
-	game->init("Igra", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 1280, 0);
+	game->init("Igra", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WindowWidth, WindowHeight, 0);
 
 	while (game->running())
 	{

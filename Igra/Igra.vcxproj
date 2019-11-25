@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\include;D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
@@ -95,11 +95,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\include;D:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\dev\SDL2_image-2.0.1\lib\x64;D:\dev\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\lib\x64;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\lib\x64;D:\dev\SDL2_image-2.0.1\lib\x64;D:\dev\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

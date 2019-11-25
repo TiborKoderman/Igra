@@ -59,11 +59,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
-	destR.h = 64;
-	destR.w = 64;
+	destR.h = WindowHeight/20;
+	destR.w = WindowWidth/20;
 	enemyTex = TextureManager::LoadTexture("assets/Enemy Ms.png", renderer);
-	EnemyR.h = 64;
-	EnemyR.w = 64;
+	EnemyR.h = WindowHeight/20;
+	EnemyR.w = WindowWidth/20;
 
 
 	currentTime = SDL_GetTicks()+1000;
@@ -84,19 +84,19 @@ void Game::handleEvents()
 		switch (event.key.keysym.sym)
 		{
 			case SDLK_w:
-				destR.y -= 64;
+				destR.y -= WindowHeight/20;
 				printf("pressed w\n");
 				break;
 			case SDLK_s:
-				destR.y += 64;
+				destR.y += WindowHeight/20;
 				printf("pressed s\n");
 				break;
 			case SDLK_a:
-				destR.x -= 64;
+				destR.x -= WindowWidth/20;
 				printf("pressed a\n");
 				break;
 			case SDLK_d:
-				destR.x += 64;
+				destR.x += WindowWidth/20;
 				printf("pressed d\n");
 				break;
 			case SDLK_F11:
@@ -113,14 +113,14 @@ void Game::handleEvents()
 void Game::update()
 {
 	cnt++;
-	if (destR.x > 1280-64)
+	if (destR.x > WindowWidth-WindowWidth/20)
 		destR.x = 0;
 	if (destR.x < 0)
-		destR.x = 1280-64;
-	if (destR.y > 1280-64)
+		destR.x = WindowWidth-WindowWidth/20;
+	if (destR.y > WindowWidth-WindowWidth/20)
 		destR.y = 0;
 	if (destR.y < 0)
-		destR.y = 1280-64;
+		destR.y = WindowWidth-WindowWidth/20;
 
 	moveEnemy();
 	
@@ -182,12 +182,12 @@ void fillList()
 
 void moveEnemy()
 {
-	if (c->x + EnemyR.x < c->next->x * 64)
-		EnemyR.x += 16;
-	if (c->x + EnemyR.x - 16 > c->next->x * 64)
-		EnemyR.x -= 16;
-	if (c->y + EnemyR.y < c->next->y * 64)
-		EnemyR.y += 16;
-	if (c->y + EnemyR.y - 16 > c->next->y * 64)
-		EnemyR.y -= 16;
+	if (c->x + EnemyR.x < c->next->x * WindowWidth/20)
+		EnemyR.x += WindowWidth/80;
+	if (c->x + EnemyR.x - WindowWidth / 80 > c->next->x * WindowWidth / 20)
+		EnemyR.x -= WindowWidth / 80;
+	if (c->y + EnemyR.y < c->next->y * WindowHeight / 20)
+		EnemyR.y += WindowHeight / 80;
+	if (c->y + EnemyR.y - WindowHeight / 80 > c->next->y * WindowHeight / 20)
+		EnemyR.y -= WindowHeight / 80;
 }

@@ -6,6 +6,11 @@
 #include <ctime>
 #include <stdlib.h>
 #include <stdio.h>
+
+#define WindowHeight 1280/2
+#define WindowWidth 1280/2
+
+
 class Game {
 public:
 	Game();
