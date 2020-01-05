@@ -27,11 +27,17 @@
     <ClCompile Include="src\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector2D.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,7 +47,28 @@
     <ClInclude Include="src\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\player.h">
+    <ClInclude Include="src\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\ECS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\SpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\TransformComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\KeyboardController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,6 +80,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\Enemy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player2ž.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Enemy_.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\dirt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\water.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

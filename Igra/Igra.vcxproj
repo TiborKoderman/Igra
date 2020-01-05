@@ -141,9 +141,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\player.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libpng16-16.dll" />
@@ -152,14 +154,26 @@
     <None Include="zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ECS\Components.h" />
+    <ClInclude Include="src\ECS\ECS.h" />
+    <ClInclude Include="src\ECS\KeyboardController.h" />
+    <ClInclude Include="src\ECS\TransformComponent.h" />
+    <ClInclude Include="src\ECS\SpriteComponent.h" />
     <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\dirt.png" />
     <Image Include="assets\Enemy Ms.png" />
     <Image Include="assets\Enemy.png" />
+    <Image Include="assets\Enemy_.png" />
+    <Image Include="assets\grass.png" />
     <Image Include="assets\player.png" />
+    <Image Include="assets\player2ž.png" />
+    <Image Include="assets\water.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

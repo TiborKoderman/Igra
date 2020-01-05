@@ -1,14 +1,16 @@
-#ifndef Game_h
-#define Game_h
+#pragma once
+
 #include "SDL.h"
 #include "SDL_image.h"
-#include "TextureManager.h"
+#include "Map.h"
 #include <ctime>
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 
-#define WindowHeight 1280/2
-#define WindowWidth 1280/2
+
+#define WindowWidth 800
+#define WindowHeight 640
 
 
 class Game {
@@ -22,15 +24,13 @@ public:
 	void update();
 	void render();
 	void clean();
-
 	bool running() { return isRunning; };
+	static SDL_Renderer *renderer;
+	static SDL_Event event;
 
 private:
+	
 	int cnt = 0;
 	bool isRunning;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 };
-
-
-#endif /* Game_hpp */
