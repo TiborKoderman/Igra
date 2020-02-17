@@ -7,9 +7,9 @@ class SpriteComponent : public Component
 private:
 	TransformComponent* transform;
 	SDL_Texture* texture;
-	SDL_Rect srcRect, destRect;
+	
 public:
-
+	SDL_Rect srcRect, destRect;
 	SpriteComponent() = default;
 	SpriteComponent(const char* path)
 	{

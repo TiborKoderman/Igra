@@ -97,5 +97,14 @@
     <Image Include="assets\water.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\tree.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\treeOnFire.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\tree.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

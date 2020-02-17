@@ -9,8 +9,8 @@
 #include <iostream>
 
 
-#define WindowWidth 800
-#define WindowHeight 640
+#define WindowWidth 1920
+#define WindowHeight 1080
 
 
 class Game {

@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "ECS/Components.h"
 #include "ECS/ECS.h"
+#include "Map.h"
 Uint32 currentTime;
 int timeSinceMove;
 /*
@@ -23,6 +24,8 @@ Manager manager;
 auto& player(manager.addEntity());
 
 SDL_Event Game::event;
+
+SDL_Rect intersect;
 
 Game::Game()
 {
@@ -64,11 +67,16 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	map = new Map();
+
+
+
 	
 	player.addComponenet<TransformComponent>();
 	player.addComponenet<SpriteComponent>("assets/player.png");
 	player.addComponenet<KeyboardController>();
-	
+
+	player.getComponent<SpriteComponent>().destRect;
+
 }
 
 void Game::handleEvents()
@@ -85,11 +93,19 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	static Uint32 lastSpread = SDL_GetTicks();
 	manager.refresh();
 	manager.update();
 	
+	
+	
 
 
+	if (SDL_GetTicks() - lastSpread > 3000) {
+		map->FireSpread();
+		map->LoadMap(map->map);
+		lastSpread = SDL_GetTicks();
+	}
 }
 void Game::render()
 {
