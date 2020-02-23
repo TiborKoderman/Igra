@@ -19,6 +19,12 @@ Map::Map()
 	dest.x = dest.y = 0;
 }
 
+Map::~Map()
+{
+	SDL_DestroyTexture(tree);
+	SDL_DestroyTexture(treeOnFire);
+}
+
 void Map::LoadMap(int arr[27][48])
 {
 	for (int row = 0; row < 27; row++)
@@ -73,4 +79,9 @@ void Map::FireSpread()
 				map[i+rand()%3-1][j+rand()%3-1] = 1;
 			}
 		}
+}
+
+void Map::Extinguish(const SDL_Rect& player)
+{
+
 }

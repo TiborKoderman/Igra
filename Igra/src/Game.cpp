@@ -3,6 +3,7 @@
 #include "ECS/Components.h"
 #include "ECS/ECS.h"
 #include "Map.h"
+#include "Collision.h"
 Uint32 currentTime;
 int timeSinceMove;
 /*
@@ -21,7 +22,9 @@ Map* map;
 SDL_Renderer* Game::renderer = NULL;
 
 Manager manager;
+
 auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 SDL_Event Game::event;
 
@@ -71,12 +74,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 
 	
-	player.addComponenet<TransformComponent>();
+	player.addComponenet<TransformComponent>(2);
 	player.addComponenet<SpriteComponent>("assets/player.png");
 	player.addComponenet<KeyboardController>();
+	player.addComponenet<ColliderComponent>("player");
 
-	player.getComponent<SpriteComponent>().destRect;
-
+	wall.addComponenet<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponenet<SpriteComponent>("assets/dirt.png");
+	wall.addComponenet<ColliderComponent>("wall");
+	
 }
 
 void Game::handleEvents()
@@ -97,6 +103,13 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 	
+	if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
+		wall.getComponent<ColliderComponent>().collider))
+	{
+		player.getComponent<TransformComponent>().scale = 1;
+		player.getComponent<TransformComponent>().velocity * -1;
+		std::cout << "hit wall\n";
+	}
 	
 	
 
