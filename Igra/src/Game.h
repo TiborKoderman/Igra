@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
+
+class ColliderComponent;
 
 
 #define WindowWidth 1920
@@ -28,6 +31,7 @@ public:
 	static SDL_Renderer *renderer;
 	static SDL_Event event;
 
+	static std::vector<ColliderComponent*> colliders;
 private:
 	
 	int cnt = 0;
