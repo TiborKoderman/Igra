@@ -30,10 +30,6 @@ SDL_Event Game::event;
 
 std::vector<ColliderComponent*> Game::colliders;
 
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
-
 
 Game::Game()
 {
@@ -76,7 +72,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	map = new Map();
 
-
+	Map::LoadMap("assets/p27x48.map", 48 , 27);
 
 	
 	player.addComponenet<TransformComponent>(2);
@@ -88,11 +84,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	wall.addComponenet<SpriteComponent>("assets/dirt.png");
 	wall.addComponenet<ColliderComponent>("wall");
 	
-	tile0.addComponenet<TileComponent>(200, 200, 32, 32, 0);
-	tile1.addComponenet<TileComponent>(250, 250, 32, 32, 1);
-	tile1.addComponenet<ColliderComponent>("dirt");
-	tile2.addComponenet<TileComponent>(150, 150, 32, 32, 2);
-	tile2.addComponenet<ColliderComponent>("grass");
 }
 
 void Game::handleEvents()
@@ -120,17 +111,11 @@ void Game::update()
 	
 
 
-	if (SDL_GetTicks() - lastSpread > 3000) {
-		map->FireSpread();
-		map->LoadMap(map->map);
-		lastSpread = SDL_GetTicks();
-	}
 }
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//map->DrawMap();
-	
+
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
@@ -143,3 +128,8 @@ void Game::clean()
 	printf("Game cleaned\n");
 }
 
+void Game::AddTile(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponenet<TileComponent>(x,y,40,40,id);
+}
