@@ -4,7 +4,7 @@
 
 Map::Map()
 {
-	dirt = TextureManager::LoadTexture("assets/dirt.png");
+	treeBurnt = TextureManager::LoadTexture("assets/treeBurnt.png");
 	treeOnFire = TextureManager::LoadTexture("assets/treeOnFire.png");
 	tree = TextureManager::LoadTexture("assets/tree.png");
 
@@ -31,7 +31,11 @@ void Map::LoadMap(int arr[27][48])
 	{
 		for (int column = 0; column < 48; column++)
 		{
-			map[row][column] = arr[row][column];
+			map[row][column].value = arr[row][column];
+			map[row][column].rect.x = column * 40;
+			map[row][column].rect.y = row * 40;
+			map[row][column].rect.h = 40;
+			map[row][column].rect.w = 40;
 		}
 	}
 }
@@ -44,7 +48,7 @@ void Map::DrawMap()
 	{
 		for (int column = 0; column < 48; column++)
 		{
-			type = map[row][column];
+			type = map[row][column].value;
 
 			dest.x = column * 40;
 			dest.y = row * 40;
@@ -58,7 +62,7 @@ void Map::DrawMap()
 				TextureManager::Draw(treeOnFire, src, dest);
 				break;
 			case 2:
-				TextureManager::Draw(dirt, src, dest);
+				TextureManager::Draw(treeBurnt, src, dest);
 				break;
 			default:
 				break;
@@ -71,17 +75,17 @@ void Map::DrawMap()
 
 void Map::FireSpread()
 {
+	int x, y;
+
 	for (int i = 0; i < 27;i++)
 		for (int j = 0; j < 48; j++)
 		{
-			if (map[i][j] == 1 && 50 <= rand() % 100 && i!= 0 &&j!=0&&i!=26&&j!=47)
+			if (map[i][j].value == 1 && 60 <= rand() % 100 && i!= 0 &&j!=0&&i!=26&&j!=47)
 			{
-				map[i+rand()%3-1][j+rand()%3-1] = 1;
+				x = i + rand() % 3 - 1;
+				y = j + rand() % 3 - 1;
+				if(map[x][y].value == 0)
+					map[x][y].SetOnFire();
 			}
 		}
-}
-
-void Map::Extinguish(const SDL_Rect& player)
-{
-
 }

@@ -24,15 +24,11 @@ SDL_Renderer* Game::renderer = NULL;
 Manager manager;
 
 auto& player(manager.addEntity());
-auto& wall(manager.addEntity());
 
 SDL_Event Game::event;
 
 std::vector<ColliderComponent*> Game::colliders;
 
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
 
 
 Game::Game()
@@ -84,15 +80,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addComponenet<KeyboardController>();
 	player.addComponenet<ColliderComponent>("player");
 
-	wall.addComponenet<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
-	wall.addComponenet<SpriteComponent>("assets/dirt.png");
-	wall.addComponenet<ColliderComponent>("wall");
 	
-	tile0.addComponenet<TileComponent>(200, 200, 32, 32, 0);
-	tile1.addComponenet<TileComponent>(250, 250, 32, 32, 1);
-	tile1.addComponenet<ColliderComponent>("dirt");
-	tile2.addComponenet<TileComponent>(150, 150, 32, 32, 2);
-	tile2.addComponenet<ColliderComponent>("grass");
 }
 
 void Game::handleEvents()
@@ -120,16 +108,26 @@ void Game::update()
 	
 
 
-	if (SDL_GetTicks() - lastSpread > 3000) {
+	if (SDL_GetTicks() - lastSpread > 2000) {
 		map->FireSpread();
-		map->LoadMap(map->map);
 		lastSpread = SDL_GetTicks();
 	}
+
+
+	for(int i =0;i<27;i++)
+		for (int j = 0; j < 48; j++)
+		{
+			if (Collision::AABB(player.getComponent<ColliderComponent>().collider, map->map[i][j].rect))
+			{
+				map->map[i][j].PutOutFire();
+			}
+			map->map[i][j].TileUpdate();
+		}
 }
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//map->DrawMap();
+	map->DrawMap();
 	
 	manager.draw();
 	SDL_RenderPresent(renderer);
