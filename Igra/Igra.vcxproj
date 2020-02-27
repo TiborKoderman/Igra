@@ -73,7 +73,7 @@
     <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\include;D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;F:\source\repos\Igra\Igra;F:\source\repos\Igra\dev\SDL2_image-2.0.1\include;F:\source\repos\Igra\dev\SDL2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -129,13 +129,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;D:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2\docs;D:\dev\SDL2_image-2.0.1\lib\x64;F:\source\repos\Igra\Igra\src;D:\dev\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2\docs;$(SolutionDir)dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2_image-2.0.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

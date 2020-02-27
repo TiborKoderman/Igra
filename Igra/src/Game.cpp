@@ -108,7 +108,7 @@ void Game::update()
 	
 
 
-	if (SDL_GetTicks() - lastSpread > 2000) {
+	if (SDL_GetTicks() - lastSpread > 1000) {
 		map->FireSpread();
 		lastSpread = SDL_GetTicks();
 	}
@@ -123,6 +123,8 @@ void Game::update()
 			}
 			map->map[i][j].TileUpdate();
 		}
+
+	GameOver();
 }
 void Game::render()
 {
@@ -141,3 +143,23 @@ void Game::clean()
 	printf("Game cleaned\n");
 }
 
+void Game::GameOver()
+{
+	int cnt2 = 0;
+	int cnt1 = 0;
+	for (int i = 0; i < 27; i++)
+		for (int j = 0; j < 48; j++)
+		{
+			if (map->map[i][j].value == 2)
+				cnt2++;
+			else if(map->map[i][j].value == 1)
+				cnt1++;
+		}
+	if (((float)cnt2 / (27.0f * 48.0f)) * 100 > 33)
+		std::cout << "\n\n\n GAME OVER \n\n\n";
+	else if(cnt1=0)
+		std::cout << "\n\n\n GAME WON \n\n\n";
+	
+
+
+}

@@ -27,6 +27,7 @@ public:
 	void update();
 	void render();
 	void clean();
+	void GameOver();
 	bool running() { return isRunning; };
 	static SDL_Renderer *renderer;
 	static SDL_Event event;

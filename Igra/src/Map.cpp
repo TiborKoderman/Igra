@@ -80,7 +80,7 @@ void Map::FireSpread()
 	for (int i = 0; i < 27;i++)
 		for (int j = 0; j < 48; j++)
 		{
-			if (map[i][j].value == 1 && 60 <= rand() % 100 && i!= 0 &&j!=0&&i!=26&&j!=47)
+			if (map[i][j].value == 1 && 40 >= rand() % 100+1 && i!= 0 &&j!=0&&i!=26&&j!=47)
 			{
 				x = i + rand() % 3 - 1;
 				y = j + rand() % 3 - 1;
