@@ -102,12 +102,26 @@ void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng)
 		}
 	}
 	else if (selectedButton == 2)
+	{
 		HL = hsButton;
+		if (pressed)
+			menuStage = 2;
+	}
+		
 
 
 	if (menuStage == 1)
 	{
 		newgame->Loop(Difficulty, startPos, GameRunning, menuStage);
+	}
+	if (menuStage == 2)
+	{
+		string tmp;
+		cout << "LeaderBoard:\n";
+		ifstream f("LeaderBoard.txt");
+		while (getline(f,tmp))
+			cout<<tmp <<"\n";
+		menuStage = 0;
 	}
 	pressed = false;
 }
@@ -324,24 +338,24 @@ GameOver::GameOver()
 
 int GameOver::Loop(Uint64 Score, bool wl)
 {
+	//cout << "looping\n";
 	string temp;
 	this->wl = wl;
-	if (Game::event.type == SDL_KEYDOWN)
-	{
-		switch (Game::event.key.keysym.sym)
+		if (Game::event.type == SDL_KEYDOWN)
 		{
-		case SDLK_ESCAPE:
-		case SDLK_SPACE:
-		case SDLK_RETURN:
-
-			return 0;
-			break;
-		default:
-			return 1;
-			break;
+			//cout << "Checking key\n";
+			switch (Game::event.key.keysym.sym)
+			{
+			case SDLK_ESCAPE:
+			case SDLK_SPACE:
+			case SDLK_RETURN:
+			//	cout << "Pressed Key!\n";
+				addToLb(Score, newgame->name);
+				return 1;
+				break;
+			}
 		}
-	}
-	addToLb(Score, newgame->name);
+	return 0;
 }
 
 void GameOver::render()

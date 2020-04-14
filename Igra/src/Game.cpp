@@ -25,6 +25,8 @@ Map* map;
 Menu *menu;
 
 bool ng = 1;
+bool go = 0;
+bool wl;
 
 GameOver *gameover;
 
@@ -218,32 +220,26 @@ void Game::update()
 				enemies.erase(enemies.begin() + (del));
 		}
 		
-		
+
+
+
 		if (isGameOver() == 0 || !playerAlive)
 		{
+			wl = 0;
 			GameRunning = -1;
 			calculateScore(Score);
 			cout << "Score: " << Score << "\n";
-			if(gameover->Loop(Score, 0))
-			{
-				isRunning = false;
-			}
-			
 		}
-
 		if (isGameOver() == 1)
 		{
+			go = 1;
+			wl = 1;
+			//gameover->Loop(Score, 0);
 			Score += pow(100,Difficulty+1) * ((1000*180) / (gameTimer + 1));
 			calculateScore(Score);
 			cout << "Score: " << Score << "\n";
-			GameRunning = - 1;
-			if (gameover->Loop(Score, 1))
-			{
-				isRunning = false;
-			}
-			
+			GameRunning = - 1;			
 		}
-
 
 		if (Game::event.type == SDL_KEYDOWN)
 		{
@@ -255,7 +251,13 @@ void Game::update()
 				break;
 
 			}
-
+		}
+	}
+	else if (GameRunning == -1)
+	{
+		if (gameover->Loop(Score, wl))
+		{
+			isRunning = false;
 		}
 	}
 }
