@@ -9,6 +9,7 @@
 #include <vector>
 #include <list>
 #include <SDL_ttf.h>
+#include <fstream>
 
 class ColliderComponent;
 

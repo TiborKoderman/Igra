@@ -76,6 +76,9 @@ void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng)
 			case SDLK_SPACE:
 				pressed = true;
 				break;
+			case SDLK_r:
+				GameRunning = 3;
+				break;
 
 			}
 			

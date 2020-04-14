@@ -25,14 +25,16 @@ Map* map;
 Menu *menu;
 
 bool ng = 1;
-bool go = 0;
 bool wl;
+bool go = 0;
 
 GameOver *gameover;
 
 SDL_Renderer* Game::renderer = NULL;
 std::vector<Enemy> enemies;
 std::vector<Villager> villagers;
+
+
 
 Manager manager;
 
@@ -50,6 +52,9 @@ bool playerAlive = 1;
 
 void saveEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map, Entity &Player, int &Difficulty);
 void loadEnteties(Uint64& gameTimer, vector<Enemy>& enemies, vector<Villager>& villagers, Map& map, int& Difficulty);
+
+ofstream trace;
+ifstream tracei;
 
 class SaveState
 {
@@ -76,9 +81,12 @@ class GameState
 
 Game::Game()
 {
+	trace.open("trace.txt");
 }
 Game::~Game()
 {
+	trace.close();
+	tracei.close();
 }
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
@@ -144,7 +152,7 @@ void Game::update()
 	{
 		menu->Loop(Difficulty, startPos, GameRunning, ng);
 	}
-	else if (GameRunning == true)
+	else if (GameRunning == 1)
 	{
 		
 		if (needToInit)
@@ -155,7 +163,7 @@ void Game::update()
 				loadEnteties(gameTimer, enemies, villagers, *map, Difficulty);
 			needToInit = false;
 		}
-		
+		trace <<player.getComponent<TransformComponent>().position.x << "," << player.getComponent<TransformComponent>().position.y <<"\n";
 
 		for (auto& i : enemies)
 			i.Update();
@@ -260,6 +268,49 @@ void Game::update()
 			isRunning = false;
 		}
 	}
+	else if (GameRunning == 3)
+	{
+	static int it;
+	static vector<Vector2D> cord;
+	Vector2D tap;
+		if (needToInit)
+		{
+			player.addComponenet<TransformComponent>(0,0);
+			player.addComponenet<SpriteComponent>("assets/player.png");
+			player.addComponenet<KeyboardController>();
+			player.addComponenet<ColliderComponent>("player");
+			needToInit = false;
+			string tp;
+			tracei.open("trace.txt");
+			if (tracei.is_open())
+			{
+				while (tracei.good())
+				{
+					getline(tracei, tp, ',');
+					tap.x = atoi(tp.c_str());
+					getline(tracei, tp, '\n');
+					tap.y = atoi(tp.c_str());
+
+					cord.push_back(tap);
+				}
+			}
+			tracei.close();
+			it = 0;
+		}
+		
+		if (it < cord.size())
+		{
+			player.getComponent<TransformComponent>().position.x = cord[it].x;
+			player.getComponent<TransformComponent>().position.y = cord[it].y;
+			it++;
+		}
+		else
+		{
+			system("pause");
+				isRunning = false;
+		}
+		}
+	
 }
 void Game::render()
 {
@@ -281,11 +332,12 @@ void Game::render()
 		TextureManager::Write(std::to_string(gameTimer / 1000), 3, timerRect, { 255,255,255 });
 		manager.draw();
 		}
-
-
-			
-		SDL_RenderPresent(renderer);
+	if (GameRunning == 3)
+	{
+		manager.draw();
+	}
 	
+		SDL_RenderPresent(renderer);
 }
 
 void Game::clean()
