@@ -1,6 +1,7 @@
 #include "NPC.h"
 #include "TextureManager.h"
 #include "Map.h"
+#include "Collision.h"
 
 Enemy::~Enemy()
 {
@@ -114,6 +115,8 @@ Villager::Villager()
 	destY = (rand() % 18) * 60;
 
 	lastTime = SDL_GetTicks();
+
+	lockedOn = false;
 }
 
 
@@ -123,15 +126,62 @@ void Villager::Draw()
 }
 
 
-void Villager::Update()
+void Villager::Update(Map map, std::vector<Enemy> enemies)
 {
-	if (SDL_GetTicks() - lastTime > 6000)
+	if (SDL_GetTicks() - lastTime > 6000 && !lockedOn)
 	{
 		destX = (rand() % 32) * 60;
 		destY = (rand() % 18) * 60;
 		lastTime = SDL_GetTicks();
 	}
 
+
+	nqx = dest.x / 60;
+	nqy = dest.y / 60;
+
+	
+
+	for(int i = -2; i<=2;i++)
+		for (int j = -2; j <= 2; j++)
+		{
+			dpx = i+nqx;
+			dpy = j+nqy;
+			if (dpx + i < 0)
+				dpx = 0;
+			else if (dpx + i > 31)
+				dpx = 31;
+			if (dpy + j < 0)
+				dpy = 0;
+			else if (dpy + j > 17)
+				dpy = 17;
+			
+			for (auto& i : enemies)
+			{
+				SDL_Rect lockBox;
+				lockBox.x = dpx;
+				lockBox.y = dpy;
+				lockBox.w = 5 * 60;
+				lockBox.h = 5 * 60;
+				if (Collision::AABB(lockBox, i.dest))
+				{
+					destX = i.dest.x;
+					destY = i.dest.y;
+					lockedOn = true;
+					break;
+				}
+			}
+			if (map.map[dpy][dpx].value == 1)
+			{
+				destX = (dpx)*60;
+				destY = (dpy)*60;
+				lockedOn = true;
+				break;
+			}
+			else
+			{
+				lockedOn = false;
+			}
+		}
 
 
 	if (dest.x < destX)

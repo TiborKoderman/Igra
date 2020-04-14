@@ -66,7 +66,7 @@ class Villager
 
 	int lastTime;
 
-
+	bool lockedOn;
 
 public:
 
@@ -77,10 +77,16 @@ public:
 	//~Villager();
 
 	int destX, destY;
+
+	int nqx, nqy;
+
+	int dpx;
+	int dpy;
+
 	void UpdatePos();
 	void chaseFire(Map* map);
 
-	void Update();
+	void Update(Map map,std::vector<Enemy> enemies);
 	void Draw();
 
 };

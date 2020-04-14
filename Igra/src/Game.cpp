@@ -158,7 +158,7 @@ void Game::update()
 		for (auto& i : enemies)
 			i.Update();
 		for (auto& i : villagers)
-			i.Update();
+			i.Update(*map, enemies);
 
 
 		static Uint32 lastSpread = SDL_GetTicks();
