@@ -8,11 +8,13 @@ public:
 	Vector2D position;
 	Vector2D velocity;
 
-	int height = 32;
-	int width = 32;
+	int height = 60;
+	int width = 60;
 	int scale = 1;
 
-	int speed = 3;
+	
+
+	int speed = 5;
 
 	TransformComponent()
 	{
@@ -49,6 +51,15 @@ public:
 	{
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
+
+		if (position.x > (1920 - width))
+			position.x = 0;
+		if (position.x < 0)
+			position.x = 1920 - width;
+		if (position.y < 0)
+			position.y = 1080 - height;
+		if (position.y > (1080 - height))
+			position.y = 0;
 	}
 
 };

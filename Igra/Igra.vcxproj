@@ -70,10 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\include;D:\dev\SDL2\include;D:\dev\SDL2_image-2.0.1\include;F:\source\repos\Igra\Igra;F:\source\repos\Igra\dev\SDL2_image-2.0.1\include;F:\source\repos\Igra\dev\SDL2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/include;$(WindowsSDK_IncludePath);$(VC_IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/include;$(WindowsSDK_IncludePath);$(VC_IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -95,12 +97,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\include;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\include;D:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2\docs;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\lib\x64;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\lib\x64;D:\dev\SDL2_image-2.0.1\lib\x64;F:\dev\SDL2_image-2.0.1\lib\x64;F:\dev\SDL2\lib\x64;D:\dev\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/lib/x64;$(SolutionDir)dev\SDL2_ttf-2.0.15/include;$(SolutionDir)dev\SDL2\docs;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2\lib\x64;C:\Users\bimbo\source\repos\TiborKoderman\Igra\dev\SDL2_image-2.0.1\lib\x64;D:\dev\SDL2_image-2.0.1\lib\x64;F:\dev\SDL2_image-2.0.1\lib\x64;F:\dev\SDL2\lib\x64;D:\dev\SDL2\lib\x64;%(AdditionalLibraryDirectories);$(SolutionDir)dev\SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)dev\SDL2_ttf-2.0.15\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/lib/x64;$(SolutionDir)dev\SDL2_ttf-2.0.15/include</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,14 +131,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2\docs;$(SolutionDir)dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2_image-2.0.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dev\SDL2_image-2.0.1\include;$(SolutionDir)dev\SDL2\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/lib/x64;$(SolutionDir)dev\SDL2_ttf-2.0.15/include;$(SolutionDir)dev\SDL2\docs;$(SolutionDir)dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2\lib\x64;F:\source\repos\Igra\dev\SDL2_image-2.0.1\lib\x64;%(AdditionalLibraryDirectories);$(SolutionDir)dev\SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)dev\SDL2_ttf-2.0.15\include;$(SolutionDir)dev\SDL2_ttf-2.0.15/lib/x64;$(SolutionDir)dev\SDL2_ttf-2.0.15/include</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -144,6 +146,8 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\NPC.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
@@ -152,7 +156,7 @@
     <None Include="libpng16-16.dll" />
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
-    <None Include="zlib1.dll" />
+    <None Include="SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Collision.h" />
@@ -166,21 +170,44 @@
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\Menu.h" />
+    <ClInclude Include="src\NPC.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\Back.png" />
+    <Image Include="assets\Background.png" />
+    <Image Include="assets\BL.png" />
+    <Image Include="assets\Blank_Button.png" />
+    <Image Include="assets\BR.png" />
     <Image Include="assets\dirt.png" />
+    <Image Include="assets\easy.png" />
     <Image Include="assets\Enemy Ms.png" />
     <Image Include="assets\Enemy.png" />
     <Image Include="assets\Enemy_.png" />
+    <Image Include="assets\GameOver_Won.png" />
     <Image Include="assets\grass.png" />
+    <Image Include="assets\hard.png" />
+    <Image Include="assets\hiscore.png" />
+    <Image Include="assets\impossible.png" />
+    <Image Include="assets\Load last session.png" />
+    <Image Include="assets\MainMenu.png" />
+    <Image Include="assets\MenuHLight.png" />
+    <Image Include="assets\normal.png" />
     <Image Include="assets\player.png" />
     <Image Include="assets\player2ž.png" />
+    <Image Include="assets\RR.png" />
+    <Image Include="assets\StartGame.png" />
+    <Image Include="assets\TL.png" />
+    <Image Include="assets\TR.png" />
     <Image Include="assets\tree.jpg" />
     <Image Include="assets\tree.png" />
+    <Image Include="assets\treeBurnt.png" />
     <Image Include="assets\treeOnFire.png" />
+    <Image Include="assets\Villager.png" />
     <Image Include="assets\water.png" />
+    <Image Include="C:\Users\xeoqs\Downloads\impossible.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

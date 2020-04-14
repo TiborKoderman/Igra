@@ -37,6 +37,7 @@ public:
 		srcRect.h = transform->height;
 		destRect.w = destRect.h = 64;
 	}
+
 	void update() override
 	{
 		destRect.x = static_cast<int>(transform->position.x);

@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="zlib1.dll" />
     <None Include="libpng16-16.dll" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2.dll" />
+    <None Include="SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -40,6 +40,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,6 +89,12 @@
     <ClInclude Include="src\ECS\TileComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player.png">
@@ -116,6 +128,69 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\tree.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\treeBurnt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Villager.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\MainMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Load last session.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\hiscore.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\easy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\BR.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\BL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\impossible.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\hard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\TR.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\TL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\RR.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\MenuHLight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\StartGame.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Blank_Button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\xeoqs\Downloads\impossible.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\GameOver_Won.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

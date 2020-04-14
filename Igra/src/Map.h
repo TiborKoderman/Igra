@@ -11,12 +11,12 @@ public:
 
 	Tile()
 	{
-		timer = SDL_GetTicks();
+		const int timer = SDL_GetTicks();
 	}
 
-	void TileUpdate()
-	{
-		if (SDL_GetTicks() - timer > 30000 && value == 1)
+	void TileUpdate(int interval)
+	{		
+		if (SDL_GetTicks() - timer > interval && value == 1)
 			value = 2;
 	}
 
@@ -32,6 +32,14 @@ public:
 			value = 0;
 	}
 
+	Tile operator=(Tile a)
+	{
+		value = a.value;
+		rect = a.rect;
+		timer = a.timer;
+
+		return a;
+	}
 
 };
 
@@ -44,15 +52,31 @@ public:
 	Map();
 	~Map();
 
-	void LoadMap(int arr[27][48]);
+	void LoadMap(int arr[18][32]);
 	void DrawMap();
 	void FireSpread();
 
-	int lvl1[27][48];
+	int lvl1[18][32];
 
-	Tile map[27][48];
+	Tile map[18][32];
 	SDL_Rect src, dest;
 	void Extinguish(const SDL_Rect& player);
+
+	Map operator=(Map a)
+	{
+		for(int i = 0; i<18;i++)
+			for (int j = 0; j < 32; j++)
+			{
+				lvl1[i][j] =a.lvl1[i][j];
+				map[i][j] = a.map[i][j];
+			}
+				
+		src = a.src;
+		dest = a.dest;
+		return a;
+	}
+
+
 private:
 
 	
@@ -61,6 +85,5 @@ private:
 	SDL_Texture* tree;
 
 	
-
 
 };
