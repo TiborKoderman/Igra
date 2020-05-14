@@ -17,4 +17,5 @@ Te game is so bad, because it was for class and this were the points the game ne
 
 # System requirements
 -Windows machine
+
 -64-bit cpu
