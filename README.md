@@ -1,6 +1,7 @@
 # The shitty game I made for programming class and got an A for
 
 Setup guide:
+
  step 1: Download Release zip
  
  step 2: unzip
@@ -9,7 +10,7 @@ Setup guide:
  
  step 4: profit???
  
-sorry some comments are in slovenian
+Sorry, some comments are in slovenian
 
 Game was made from scratch using SDL2 graphics were done using a toutorial, since this was my first time programming a game.
 
