@@ -194,6 +194,7 @@
     <Image Include="assets\hard.png" />
     <Image Include="assets\hiscore.png" />
     <Image Include="assets\impossible.png" />
+    <Image Include="assets\Leaderboard_graphic.png" />
     <Image Include="assets\Load last session.png" />
     <Image Include="assets\MainMenu.png" />
     <Image Include="assets\MenuHLight.png" />
@@ -214,6 +215,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="LeaderBoard.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\comic.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

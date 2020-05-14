@@ -20,6 +20,11 @@ public:
 			value = 2;
 	}
 
+	void ResetTimer()
+	{
+		timer = SDL_GetTicks();
+	}
+
 	void SetOnFire()
 	{
 			value = 1;

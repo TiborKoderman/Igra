@@ -27,6 +27,12 @@ public:
 		position.y = y;
 	}
 
+	void move(float x, float y)
+	{
+		position.x = x;
+		position.y = y;
+	}
+
 	TransformComponent(int sc)
 	{
 		position.Zero();

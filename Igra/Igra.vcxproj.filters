@@ -196,8 +196,14 @@
     <Image Include="assets\GameOver_Won.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\Leaderboard_graphic.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LeaderBoard.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\comic.ttf" />
   </ItemGroup>
 </Project>

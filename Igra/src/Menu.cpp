@@ -9,6 +9,10 @@
 
 
 NewGame *newgame;
+LeaderboardScreen *lb;
+
+
+
 
 Menu::Menu()
 {
@@ -18,11 +22,15 @@ Menu::Menu()
 	ThsButton = TextureManager::LoadTexture("assets/hiscore.png");
 	THL = TextureManager::LoadTexture("assets/MenuHLight.png");
 
+	
+
 	//---------------//
 	//Start game menu//
 	//---------------//
 
 	newgame = new NewGame;
+
+	lb = new LeaderboardScreen;
 
 	//vem da mam prevect recov, to sm opazu sele po tem ka sm koncou, prej rectov nism sploh razumel, pa razumem da so source recti pozicija na .png
 
@@ -59,7 +67,7 @@ Menu::Menu()
 	menuStage = 0;
 }
 
-void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng)
+void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng, string& name)
 {
 	static bool pressed = 0;
 	if(menuStage == 0)
@@ -79,9 +87,7 @@ void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng)
 			case SDLK_r:
 				GameRunning = 3;
 				break;
-
 			}
-			
 		}
 	if (selectedButton > 2)
 		selectedButton = 0;
@@ -110,21 +116,25 @@ void Menu::Loop(int& Difficulty, int& startPos, int &GameRunning, bool &ng)
 		if (pressed)
 			menuStage = 2;
 	}
-		
+
 
 
 	if (menuStage == 1)
 	{
-		newgame->Loop(Difficulty, startPos, GameRunning, menuStage);
+		newgame->Loop(Difficulty, startPos, GameRunning, menuStage, name);
 	}
 	if (menuStage == 2)
 	{
+		/*
 		string tmp;
 		cout << "LeaderBoard:\n";
 		ifstream f("LeaderBoard.txt");
 		while (getline(f,tmp))
 			cout<<tmp <<"\n";
-		menuStage = 0;
+		*/
+		lb->loop(menuStage);
+
+		//menuStage = 0;
 	}
 	pressed = false;
 }
@@ -196,21 +206,23 @@ NewGame::NewGame()
 
 	selectedButton = 3;
 
+	nmslt = 0;
 	//cout << "Vpisi ime: ";
 	//f getline(cin, name);
 
 }
 
-void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuStage)
+void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuStage, string& name)
 {
 	static bool pressed = false;
-	if (Game::event.type == SDL_KEYDOWN)
+	
+	if (Game::event.type == SDL_KEYDOWN && nmslt == 0)
 	{
 		switch (Game::event.key.keysym.sym)
 		{
 		case SDLK_w:
-			if(selectedButton ==1)
-				selectedButton =3;
+			if (selectedButton == 1)
+				selectedButton = 3;
 			else if (selectedButton == 3)
 				selectedButton = 1;
 			else if (selectedButton == 2)
@@ -229,7 +241,7 @@ void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuSt
 				selectedButton = 2;
 			break;
 		case SDLK_a:
-			if(selectedButton == 1)
+			if (selectedButton == 1)
 				selectedButton = 0;
 			else if (selectedButton == 2)
 				selectedButton = 1;
@@ -241,8 +253,8 @@ void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuSt
 				selectedButton = 3;
 			break;
 		case SDLK_d:
-			if(selectedButton ==0)
-				selectedButton=1;
+			if (selectedButton == 0)
+				selectedButton = 1;
 			else if (selectedButton == 2)
 				selectedButton = 0;
 			else if (selectedButton == 1)
@@ -256,9 +268,45 @@ void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuSt
 			pressed = true;
 			break;
 		}
-
-		
 	}
+
+	if (Game::event.type == SDL_KEYDOWN && nmslt == 1)
+	{
+		switch (Game::event.key.keysym.sym)
+		{
+		case SDLK_SPACE:
+			pressed = true;
+			break;
+			
+		case SDLK_BACKSPACE:
+			if(name.size()>0)
+				name.pop_back();
+			break;
+			
+		}
+	}
+
+	if (SDL_PollEvent(&Game::event) && nmslt == 1)
+	{
+		switch(Game::event.type)
+		{
+		case SDL_TEXTINPUT:
+			name += Game::event.text.text;
+			if (name.back() == ' ')
+				name.pop_back();
+			break;
+			/*
+		case SDL_TEXTEDITING:
+			composition = Game::event.edit.text;
+			cursor = Game::event.edit.start;
+			selection_len = Game::event.edit.length;
+			break;
+			*/
+		}
+		cout << name<<"\n";
+	}
+
+
 	if (selectedButton == 0)
 	{
 		HL = back;
@@ -268,6 +316,15 @@ void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuSt
 	else if (selectedButton == 1)
 	{
 		HL = nameSlot;
+		
+		if (pressed)
+		{
+			if (nmslt == 0)
+				nmslt = 1;
+			else
+				nmslt = 0;
+			std::cout << nmslt;
+		}
 	}
 	else if (selectedButton == 2)
 	{
@@ -302,7 +359,7 @@ void NewGame::Loop(int& Difficulty, int& startPos, int& GameRunning, int& menuSt
 	pressed = false;
 }
 
-void NewGame::Render(int Difficulty, int startPos)
+void NewGame::Render(int Difficulty, int startPos, string& name)
 {
 	TextureManager::Draw(Tbackground, background, background);
 	TextureManager::Draw(TngButton, ngButtons, ngButton);
@@ -311,10 +368,11 @@ void NewGame::Render(int Difficulty, int startPos)
 	TextureManager::Draw(TdifButton[Difficulty], difficultyRs, difficultyR);
 	TextureManager::Draw(TstartPosButton[startPos], startPosRs, startPosR);
 	TextureManager::Draw(THL, HLs, HL);
+	TextureManager::Write(name, nameSlot);
 
 }
 
-void Menu::Render(int Difficulty, int startPos)
+void Menu::Render(int Difficulty, int startPos, string &name)
 {
 	if (!menuStage)
 	{
@@ -325,7 +383,9 @@ void Menu::Render(int Difficulty, int startPos)
 		TextureManager::Draw(THL, HLsrc, HL);
 	}
 	if (menuStage == 1)
-		newgame->Render(Difficulty, startPos);
+		newgame->Render(Difficulty, startPos, name);
+	if (menuStage == 2)
+		lb->render();
 }
 
 GameOver::GameOver()
@@ -339,7 +399,7 @@ GameOver::GameOver()
 	
 }
 
-int GameOver::Loop(Uint64 Score, bool wl)
+int GameOver::Loop(Uint64 Score, bool wl, string& name)
 {
 	//cout << "looping\n";
 	string temp;
@@ -353,7 +413,7 @@ int GameOver::Loop(Uint64 Score, bool wl)
 			case SDLK_SPACE:
 			case SDLK_RETURN:
 			//	cout << "Pressed Key!\n";
-				addToLb(Score, newgame->name);
+				addToLb(Score, name);
 				return 1;
 				break;
 			}
@@ -361,18 +421,24 @@ int GameOver::Loop(Uint64 Score, bool wl)
 	return 0;
 }
 
-void GameOver::render()
+void GameOver::render(Uint64 Score)
 {
-	if (wl)
+	if (wl) 
+	{
 		TextureManager::Draw(Tbgw, bg, bg);
+		TextureManager::Write(to_string(Score), 450, 700, 1000, 200);
+	}
+		
 		
 	else
+	{
 		TextureManager::Draw(Tbgl, bg, bg);
-
+		TextureManager::Write(to_string(Score), 450, 700, 1000, 200);
+	}
 }
 
 
-void GameOver::addToLb(Uint64 Score, string name)
+void GameOver::addToLb(Uint64 Score, string& name)
 { 
 	string tmp;
 	
@@ -382,7 +448,7 @@ void GameOver::addToLb(Uint64 Score, string name)
 
 	LBent temp;
 	temp.score = Score;
-	temp.name = "name";
+	temp.name = name;
 
 	int cnt = 0;
 
@@ -424,4 +490,75 @@ void GameOver::addToLb(Uint64 Score, string name)
 		}
 		odat.close();
 	}
+}
+
+
+LeaderboardScreen::LeaderboardScreen()
+{
+	bg.h = 1080;
+	bg.w = 1920;
+	bg.x = 0;
+	bg.y = 0;
+
+
+
+	tbg = TextureManager::LoadTexture("assets/Leaderboard_graphic.png");
+}
+
+void LeaderboardScreen::loop(int& menuStage)
+{
+	
+	if (Game::event.type == SDL_KEYDOWN)
+	{
+		switch (Game::event.key.keysym.sym)
+		{
+		case SDLK_ESCAPE:
+		//case SDLK_SPACE:
+		case SDLK_RETURN:
+			menuStage = 0;
+			read = 0;
+			break;
+		}
+	}
+
+}
+
+void LeaderboardScreen::render()
+{
+	SDL_Rect scr;
+	scr.w = 1000;
+	scr.h = 100;
+	scr.x = 460;
+	scr.y = 500;
+	TextureManager::Draw(tbg, bg, bg);
+	if (read == 0)
+	{
+	ifstream idat("LeaderBoard.txt");
+	TextureManager::Write("test", scr);
+	LBent temp;
+	string stmp;
+	
+		while (idat.good())
+		{
+			getline(idat, temp.name, ':');
+			getline(idat, stmp, '\n');
+			temp.score = stoi(stmp);
+			scores.push_back(temp);
+		}
+		idat.close();
+		
+		read = 1;
+	}
+	string tempcout;
+		int cnt = 1;
+		for (auto& i : scores)
+		{
+			if (cnt < 6)
+			{
+				tempcout = to_string(cnt) + ". " + i.name + ": " + to_string(i.score) + "pts";
+				TextureManager::Write(tempcout, scr);
+				scr.y += 100;
+				cnt++;
+			}
+		}
 }

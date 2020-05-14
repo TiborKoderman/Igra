@@ -40,6 +40,8 @@ public:
 
 	SDL_Rect timerRect;
 
+
+
 	Uint64 gameTimer;
 
 	//Menu menu;

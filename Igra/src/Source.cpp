@@ -18,6 +18,9 @@ int main(int argc, char* argv[])
 
 	game->init("Igra", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WindowWidth, WindowHeight, 0);
 
+	if (TTF_Init() < 0)
+		std::cout << "Error: " << TTF_GetError() << std::endl;
+
 	while (game->running())
 	{
 

@@ -37,8 +37,8 @@ public:
 	Menu();
 
 	
-	void Loop(int& Difficulty, int& startPos, int& GameRunning,bool &ng);
-	void Render(int Difficulty, int startPos);
+	void Loop(int& Difficulty, int& startPos, int& GameRunning,bool &ng, string& name);
+	void Render(int Difficulty, int startPos, string &name);
 
 };
 
@@ -46,7 +46,11 @@ class NewGame
 {
 public:
 	//int difficulty;
-	string name;
+	//string name;
+
+	 Sint32 cursor;
+	 Sint32 selection_len;
+	 char* composition;
 
 	int selectedButton;
 
@@ -55,10 +59,12 @@ public:
 	SDL_Rect nameSlots, difficultyRs, startPosRs, HLs, ngButtons, backs;
 	SDL_Rect background, nameSlot, difficultyR, startPosR, HL, ngButton, back;
 
+	bool nmslt;
+
 	NewGame();
 
-	void Render(int Difficulty, int startPos);
-	void Loop(int& Difficulty, int& startPos, int& GameRunning, int&menuStage);
+	void Render(int Difficulty, int startPos, string& name);
+	void Loop(int& Difficulty, int& startPos, int& GameRunning, int&menuStage, string& name);
 
 };
 
@@ -76,11 +82,27 @@ public:
 	
 
 	GameOver();
-	int Loop(Uint64 Score, bool wl);
-	void render();
+	int Loop(Uint64 Score, bool wl, string& name);
+	void render(Uint64 Score);
 
-	void addToLb(Uint64 Score, string name);
+	void addToLb(Uint64 Score, string& name);
 };
+
+
+class LeaderboardScreen
+{
+public:
+	SDL_Rect bg;
+	SDL_Texture* tbg;
+	vector<LBent> scores;
+
+	bool read = 0;
+
+	LeaderboardScreen();
+	void loop(int& menuStage);
+	void render();
+};
+
 
 class Button
 {

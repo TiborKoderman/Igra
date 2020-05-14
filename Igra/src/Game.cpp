@@ -34,7 +34,7 @@ SDL_Renderer* Game::renderer = NULL;
 std::vector<Enemy> enemies;
 std::vector<Villager> villagers;
 
-
+string name;
 
 Manager manager;
 
@@ -50,11 +50,11 @@ std::vector<ColliderComponent*> Game::colliders;
 
 bool playerAlive = 1;
 
-void saveEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map, Entity &Player, int &Difficulty);
-void loadEnteties(Uint64& gameTimer, vector<Enemy>& enemies, vector<Villager>& villagers, Map& map, int& Difficulty);
+void saveEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map, Entity &Player, int &Difficulty, string& name);
+void loadEnteties(Uint64& gameTimer, vector<Enemy>& enemies, vector<Villager>& villagers, Map& map, int& Difficulty, string& name);
 
 ofstream trace;
-ifstream tracei;
+//ifstream tracei;
 
 class SaveState
 {
@@ -81,12 +81,12 @@ class GameState
 
 Game::Game()
 {
-	trace.open("trace.txt");
+	
 }
 Game::~Game()
 {
 	trace.close();
-	tracei.close();
+	
 }
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
@@ -120,11 +120,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-
-	map = new Map();
+	
+	
 	menu = new Menu();
 	gameover = new GameOver();
-	
+	map = new Map();
+
 	needToInit = true;
 
 	timerRect.x = 0;
@@ -150,28 +151,34 @@ void Game::update()
 	
 	if (!GameRunning)
 	{
-		menu->Loop(Difficulty, startPos, GameRunning, ng);
+		menu->Loop(Difficulty, startPos, GameRunning, ng, name);
 	}
 	else if (GameRunning == 1)
 	{
-		
+		static Uint32 lastSpread = SDL_GetTicks();;
 		if (needToInit)
 		{
+			for (int i = 0; i < 18; i++)
+				for (int j = 0; j < 32; j++)
+				{
+					map->map[i][j].ResetTimer();
+				}
+
 			if (ng)
 				initEnteties();
 			else
-				loadEnteties(gameTimer, enemies, villagers, *map, Difficulty);
+				loadEnteties(gameTimer, enemies, villagers, *map, Difficulty, name);
 			needToInit = false;
+
+			trace.open("trace.txt");
+
 		}
-		trace <<player.getComponent<TransformComponent>().position.x << "," << player.getComponent<TransformComponent>().position.y <<"\n";
+		trace <<player.getComponent<TransformComponent>().position.x << " " << player.getComponent<TransformComponent>().position.y <<"\n";
 
 		for (auto& i : enemies)
 			i.Update();
 		for (auto& i : villagers)
 			i.Update(*map, enemies);
-
-
-		static Uint32 lastSpread = SDL_GetTicks();
 
 		manager.refresh();
 		manager.update();
@@ -254,7 +261,7 @@ void Game::update()
 			switch (Game::event.key.keysym.sym)
 			{
 			case SDLK_ESCAPE:
-				saveEnteties(gameTimer, enemies, villagers, *map, player, Difficulty);
+				saveEnteties(gameTimer, enemies, villagers, *map, player, Difficulty, name);
 				isRunning = false;
 				break;
 
@@ -263,15 +270,19 @@ void Game::update()
 	}
 	else if (GameRunning == -1)
 	{
-		if (gameover->Loop(Score, wl))
+		if (gameover->Loop(Score, wl, name))
 		{
 			isRunning = false;
 		}
 	}
 	else if (GameRunning == 3)
 	{
+	cout << "Replaying";
 	static int it;
 	static vector<Vector2D> cord;
+
+	int x1, y1;
+
 	Vector2D tap;
 		if (needToInit)
 		{
@@ -280,35 +291,49 @@ void Game::update()
 			player.addComponenet<KeyboardController>();
 			player.addComponenet<ColliderComponent>("player");
 			needToInit = false;
-			string tp;
-			tracei.open("trace.txt");
+			char tp;
+			ifstream tracei("trace.txt");
 			if (tracei.is_open())
 			{
-				while (tracei.good())
+				while (tracei >> x1 >> y1)
 				{
-					getline(tracei, tp, ',');
-					tap.x = atoi(tp.c_str());
-					getline(tracei, tp, '\n');
-					tap.y = atoi(tp.c_str());
-
+					tap.x = x1;
+					tap.y = y1;
 					cord.push_back(tap);
 				}
 			}
+			else
+				cout << "Not open";
 			tracei.close();
 			it = 0;
 		}
 		
+
+
 		if (it < cord.size())
 		{
-			player.getComponent<TransformComponent>().position.x = cord[it].x;
-			player.getComponent<TransformComponent>().position.y = cord[it].y;
+			cout << cord[it].x << "," << cord[it].y;
+			player.getComponent<TransformComponent>().move(cord[it].x, cord[it].y);
 			it++;
 		}
 		else
 		{
-			system("pause");
 				isRunning = false;
 		}
+
+		if (Game::event.type == SDL_KEYDOWN)
+		{
+			switch (Game::event.key.keysym.sym)
+			{
+			case SDLK_ESCAPE:
+				isRunning = false;
+				break;
+
+			}
+		}
+
+		manager.refresh();
+		manager.update();
 		}
 	
 }
@@ -317,9 +342,9 @@ void Game::render()
 
 	SDL_RenderClear(renderer);
 	if (!GameRunning)
-		menu->Render(Difficulty, startPos);
+		menu->Render(Difficulty, startPos, name);
 	if (GameRunning == -1)
-		gameover->render();
+		gameover->render(Score);
 
 	if (GameRunning == 1)
 		{
@@ -329,15 +354,18 @@ void Game::render()
 		for (auto& i : villagers)
 			i.Draw();
 
-		TextureManager::Write(std::to_string(gameTimer / 1000), 3, timerRect, { 255,255,255 });
+		TextureManager::Write(std::to_string(gameTimer / 1000), 3, timerRect);
 		manager.draw();
 		}
 	if (GameRunning == 3)
 	{
 		manager.draw();
 	}
+
 	
-		SDL_RenderPresent(renderer);
+	//TextureManager::Write(std::string("Text"), TextRect);
+
+	SDL_RenderPresent(renderer);
 }
 
 void Game::clean()
@@ -434,7 +462,7 @@ void Game::initEnteties()
 	player.addComponenet<ColliderComponent>("player");
 }
 
-void loadEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map,  int &Difficulty)
+void loadEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map,  int &Difficulty, string& name)
 {
 	gameTimer = SDL_GetTicks();
 
@@ -473,7 +501,7 @@ void loadEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &v
 
 
 
-void saveEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map, Entity &Player, int &Difficulty)
+void saveEnteties(Uint64 &gameTimer, vector<Enemy> &enemies, vector<Villager> &villagers, Map &map, Entity &Player, int &Difficulty, string& name)
 {
 	SaveState save;
 	Vector2D PlayerPos;
